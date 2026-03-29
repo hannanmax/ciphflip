@@ -26,7 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start message rotation
   rotator.start();
 
-  // Volume toggle button in header
+  // Overlay controls — auto-hide after inactivity
+  const overlay = document.querySelector('.overlay-controls');
+  let hideTimer = null;
+
+  const showOverlay = () => {
+    overlay.classList.add('visible');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => overlay.classList.remove('visible'), 3000);
+  };
+
+  document.addEventListener('mousemove', showOverlay);
+  document.addEventListener('touchstart', showOverlay);
+  // Show briefly on load
+  showOverlay();
+
+  // Volume toggle
   const volumeBtn = document.getElementById('volume-btn');
   if (volumeBtn) {
     volumeBtn.addEventListener('click', () => {
@@ -36,16 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // "Get Early Access" button: scroll to board and go fullscreen
-  const ctaBtn = document.getElementById('cta-btn');
-  if (ctaBtn) {
-    ctaBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      initAudio();
-      boardContainer.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
+  // Fullscreen toggle
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
         document.documentElement.requestFullscreen().catch(() => {});
-      }, 400);
+      }
     });
   }
 });

@@ -3,8 +3,10 @@
   width: var(--tile-size);
   height: var(--tile-size);
   perspective: 400px;
-  background: #111;
+  background: #D4A520;
   border-radius: 3px;
+  box-shadow: 0 0 8px rgba(255, 220, 100, 0.4),
+              0 0 20px rgba(255, 200, 50, 0.15);
 }
 
 /* Inner Container (transform target) */
@@ -21,14 +23,14 @@
   position: absolute;
   inset: 1px;
   backface-visibility: hidden;
-  background: #222;
+  background: #D4A520;
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.5),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.02);
+    inset 0 1px 3px rgba(0, 0, 0, 0.15),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
@@ -36,7 +38,7 @@
 .tile-back span {
   font-size: calc(var(--tile-size) * 0.52);
   font-weight: 700;
-  color: #FFFFFF;
+  color: #1A1A1A;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   line-height: 1;

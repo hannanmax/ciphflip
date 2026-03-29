@@ -1,14 +1,16 @@
-# FlipOff.
+# CiphFlip
 
-**Turn any TV into a retro split-flap display.** The classic flip-board look, without the $3,500 hardware. And it's free.
+**Turn any screen into a retro split-flap display.** The classic flip-board look, without the $3,500 hardware. Free and open source.
 
-![FlipOff Screenshot](screenshot.png)
+![CiphFlip Screenshot](screenshot.png)
 
 ## What is this?
 
-FlipOff is a free, open-source web app that emulates a classic mechanical split-flap (flip-board) airport terminal display — the kind you'd see at train stations and airports. It runs full-screen in any browser, turning a TV or large monitor into a beautiful retro display.
+CiphFlip is a free, open-source web app that emulates a classic mechanical split-flap (flip-board) airport terminal display — the kind you'd see at train stations and airports. It runs full-screen in any browser, turning a TV or large monitor into a beautiful retro display.
 
-No accounts. No subscriptions. No $199 fee. Just open `index.html` and go.
+No accounts. No subscriptions. Just open `index.html` and go.
+
+A [NorthCipherValley](https://northciphervalley.com) project.
 
 ## Features
 
@@ -45,34 +47,6 @@ python3 -m http.server 8080
 | `M` | Toggle mute |
 | `Escape` | Exit fullscreen |
 
-## How It Works
-
-Each tile on the board is an independent element that can animate through a scramble sequence (rapid random characters with colored backgrounds) before settling on the final character. Only tiles whose content changes between messages animate — just like a real mechanical board.
-
-The sound is a single recorded audio clip of a real split-flap transition, played once per message change to perfectly sync with the visual animation.
-
-## File Structure
-
-```
-flipoff/
-  index.html           — Single-page app
-  css/
-    reset.css          — CSS reset
-    layout.css         — Page layout (header, hero, board)
-    board.css          — Board container and accent bars
-    tile.css           — Tile styling and 3D flip animation
-    responsive.css     — Media queries for all screen sizes
-  js/
-    main.js            — Entry point and UI wiring
-    Board.js           — Grid manager and transition orchestration
-    Tile.js            — Individual tile animation logic
-    SoundEngine.js     — Audio playback with Web Audio API
-    MessageRotator.js  — Quote rotation timer
-    KeyboardController.js — Keyboard shortcut handling
-    constants.js       — Configuration (grid size, colors, quotes)
-    flapAudio.js       — Embedded audio data (base64)
-```
-
 ## Customization
 
 Edit `js/constants.js` to change:
@@ -83,4 +57,4 @@ Edit `js/constants.js` to change:
 
 ## License
 
-MIT — do whatever you want with it.
+MIT

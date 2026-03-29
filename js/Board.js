@@ -20,7 +20,7 @@ export class Board {
     this.boardEl.style.setProperty('--grid-cols', this.cols);
     this.boardEl.style.setProperty('--grid-rows', this.rows);
 
-    // Left accent squares (2 small stacked blocks)
+    // Left accent squares
     this.leftBar = this._createAccentBar('accent-bar-left');
     this.boardEl.appendChild(this.leftBar);
 
@@ -72,13 +72,32 @@ export class Board {
     this.boardEl.appendChild(overlay);
 
     containerEl.appendChild(this.boardEl);
+
+    // Size tiles to fill viewport
+    this._updateTileSize();
+    window.addEventListener('resize', () => this._updateTileSize());
+
     this._updateAccentColors();
+  }
+
+  _updateTileSize() {
+    const padding = 24; // px breathing room on each side
+    const availW = window.innerWidth - padding * 2;
+    const availH = window.innerHeight - padding * 2;
+
+    // Calculate max tile size that fits both dimensions
+    const gapEstimate = Math.max(2, Math.round(availW * 0.003));
+    const tileW = (availW - (this.cols - 1) * gapEstimate) / this.cols;
+    const tileH = (availH - (this.rows - 1) * gapEstimate) / this.rows;
+    const tileSize = Math.floor(Math.min(tileW, tileH));
+
+    this.boardEl.style.setProperty('--tile-size', tileSize + 'px');
+    this.boardEl.style.setProperty('--tile-gap', gapEstimate + 'px');
   }
 
   _createAccentBar(extraClass) {
     const bar = document.createElement('div');
     bar.className = `accent-bar ${extraClass}`;
-    // Just 2 small stacked squares like the original
     for (let i = 0; i < 2; i++) {
       const seg = document.createElement('div');
       seg.className = 'accent-segment';
@@ -118,9 +137,11 @@ export class Board {
       }
     }
 
-    // Play the single transition audio clip once
+    // Play sound looped to match the full grid animation duration
     if (hasChanges && this.soundEngine) {
-      this.soundEngine.playTransition();
+      const lastTileDelay = (this.rows * this.cols - 1) * STAGGER_DELAY;
+      const tileAnimTime = 1200; // scramble + settle
+      this.soundEngine.playTransition(lastTileDelay + tileAnimTime);
     }
 
     // Update accent bar colors
